@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+                <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
+            <!-- TODO: Add SDKs for Firebase products that you want to use
+                https://firebase.google.com/docs/web/setup#available-libraries -->
+
+            <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAsiJas6kf4jdQE7nlpkNC5evYQwcw0Eig",
+                authDomain: "demo4-f1257.firebaseapp.com",
+                databaseURL: "https://demo4-f1257.firebaseio.com",
+                projectId: "demo4-f1257",
+                storageBucket: "demo4-f1257.appspot.com",
+                messagingSenderId: "976737331932",
+                appId: "1:976737331932:web:caa347d0849f0fd11da219"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            var databaseRef = firebase.database().ref('users/');
+            function create_user(){
+                var user_name = document.getElementById('user_name').value;
+                var uid = document.getElementById('user_id').value;
+                // var uid = databaseRef.child('users').push().key;
+                var data = {
+                    user_id: uid,
+                    user_name: user_name
+                }
+                firebase.database().ref('users/' + uid).set(data);
+
+                alert('The user created sucessfully.')
+                
+                window.location.reload();
+            }
+
+            </script>
+</head>
+<body>
+
+
+    <div class="container"><br>
+                <div class="row card">
+                    <div class="input-field  col s12">
+                      <input class="green-text" name="id" id="user_id" type="text" data-length="10">
+                      <label for="input_text green-text">Id</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input class="green-text" name="name" id="user_name" type="text" data-length="10">
+                        <label for="input_text green-text">Name</label>
+                      </div>
+                    <div class="col s12">
+                        <button class="btn green waves-effect waves-light" onclick="create_user();" name="action">Sand
+                            <i class="material-icons right">send</i>
+                        </button><br><br>
+                    </div>
+                </div>
+                <div class="card">
+                    <table id="tbl_users_list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                          </thead>
+                    </table>
+                    <script>
+                        var tblUsers = document.getElementById('tbl_users_list');
+                        var rowIndex = 1;
+
+                        databaseRef.once('value', function(snapshot){
+                            snapshot.forEach( function(childSnapshot){
+                              var childKey = childSnapshot.key;
+                              var childData = childSnapshot.val();
+
+                              var row = tblUsers.insertRow(rowIndex);
+                              var cellId = row.insertCell(0);
+                              var cellName = row.insertCell(1);
+                              cellId.appendChild(document.createTextNode(childKey));
+                              cellName.appendChild(document.createTextNode(childData.user_name));
+                       
+                              rowIndex = rowIndex + 1;
+                            });
+                        });
+                    </script>
+                      
+                </div>
+                
+    </div>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
