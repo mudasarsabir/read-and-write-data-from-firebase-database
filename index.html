@@ -28,19 +28,36 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             var databaseRef = firebase.database().ref('users/');
-            function create_user(){
-                var user_name = document.getElementById('user_name').value;
-                var uid = document.getElementById('user_id').value;
-                // var uid = databaseRef.child('users').push().key;
-                var data = {
-                    user_id: uid,
-                    user_name: user_name
-                }
-                firebase.database().ref('users/' + uid).set(data);
 
-                alert('The user created sucessfully.')
+            function validateField(){
+                var id_field = document.getElementById("user_id").value;
+                var name_field = document.getElementById("user_name").value;
+                if(id_field == '' || name_field == ''){
+                    M.toast({
+                        html:'All Field *Required',
+                        classes:'rounded'
+                    });
+                    return false;
+                }else{
+
                 
-                window.location.reload();
+                    document.getElementById("validateField1").addEventListener('mousemove',create_user);
+                         function create_user(){
+                            var user_name = document.getElementById('user_name').value;
+                            var uid = document.getElementById('user_id').value;
+                            // var uid = databaseRef.child('users').push().key;
+                            var data = {
+                                user_id: uid,
+                                user_name: user_name
+                            }
+                            firebase.database().ref('users/' + uid).set(data);
+
+                            alert('The user created sucessfully.')
+                            
+                            window.location.reload();
+                        }
+                    }
+                    return true;
             }
 
             </script>
@@ -49,17 +66,23 @@
 
 
     <div class="container"><br>
-                <div class="row card">
+                <div class="card row"><br>
                     <div class="input-field  col s12">
                       <input class="green-text" name="id" id="user_id" type="text" data-length="10">
-                      <label for="input_text green-text">Id</label>
+                      <label for="input_text green-text">Id<a class="red-text">*</a></label>
                     </div>
                     <div class="input-field col s12">
+                        <i class="material-icons black-text prefix">user</i>
                         <input class="green-text" name="name" id="user_name" type="text" data-length="10">
-                        <label for="input_text green-text">Name</label>
-                      </div>
+                        <label for="input_text green-text">Name<a class="red-text">*</a></label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons black-text prefix">mode_edit</i>
+                        <textarea id="icon_prefix2" class="materialize-textarea green-text" name="bio" id="user_bio" type="text" data-length="1000"></textarea>
+                        <label for="icon_prefix2">Bio</label>
+                    </div>
                     <div class="col s12">
-                        <button class="btn green waves-effect waves-light" onclick="create_user();" name="action">Sand
+                        <button class="btn green waves-effect right waves-light" id="validateField1"  onclick="validateField();" name="submit">Sand
                             <i class="material-icons right">send</i>
                         </button><br><br>
                     </div>
