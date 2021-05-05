@@ -87,31 +87,11 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Delete and Update</th>
                             </tr>
                           </thead>
                     </table>
-                    <script>
-                        var tblUsers = document.getElementById('tbl_users_list');
-                        var rowIndex = 1;
-
-                        databaseRef.once('value', function(snapshot){
-                            snapshot.forEach( function(childSnapshot){
-                              var childKey = childSnapshot.key;
-                              var childData = childSnapshot.val();
-
-                              var row = tblUsers.insertRow(rowIndex);
-                              var cellId = row.insertCell(0);
-                              var cellName = row.insertCell(1);
-                              cellId.appendChild(document.createTextNode(childKey));
-                              cellName.appendChild(document.createTextNode(childData.user_name));
-                       
-                              rowIndex = rowIndex + 1;
-                            });
-                        });
-                    </script>
-                      
-                </div>
-                
+                </div>  
     </div>
 
         <!-- Compiled and minified JavaScript -->
